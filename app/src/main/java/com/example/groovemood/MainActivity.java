@@ -26,14 +26,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    //opens the song options popup menu at the location of BUTTON
     public void openSongOptions(View button){
-        openPopUp(button,R.menu.song_options_popup);
-    }
-
-    public void openPopUp(View button, int ID){
-        PopupMenu menu = new PopupMenu(this, button);
-        menu.inflate(ID);
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        openPopUp(button,R.menu.song_options_popup, new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
@@ -50,7 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    //Opens a pupup menu at the location of BUTTON.
+    //The popup menu is specified by ID
+    //The actions of the menu are specified by clickListener
+    public void openPopUp(View button, int ID, PopupMenu.OnMenuItemClickListener clickListener){
+        PopupMenu menu = new PopupMenu(this, button);
+        menu.inflate(ID);
+        menu.setOnMenuItemClickListener(clickListener);
         menu.show();
     }
 }
