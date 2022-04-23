@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GrooveMood">
         <activity
+            android:name=".MusicScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ViewPlaylistScreen"
+            android:exported="false" />
+        <activity
             android:name=".GeneratePlaylist"
             android:exported="false" />
         <activity
