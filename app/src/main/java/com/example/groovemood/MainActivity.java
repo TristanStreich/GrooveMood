@@ -24,7 +24,15 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     //All the previously created playlists
-    ArrayList<Playlist> playlists;
+    public static ArrayList<Playlist> playlists;
+
+    //Currently Playing song
+    public static Song currSong;
+    //TODO: add other fields that are neccessary for the currently playing song if needed
+
+    //Currently playing playlist
+    public static Playlist currPlaylist;
+    //TODO: add other fields that are neccessary for the currently playing playlist if needed
 
 
     @Override
@@ -49,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     //navigates to the ViewPlaylist Screen for the given playlist
     public void viewPlaylist(View playlistBar){
-
+        //TODO
     }
 
     //opens the song options popup menu at the location of BUTTON

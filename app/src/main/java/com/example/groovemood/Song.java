@@ -4,6 +4,7 @@ public final class Song {
 
     private final float length;  //length of the song in seconds.
     private final String name;
+    private Playlist playlist;
 
     //TODO: add somethings for the audio of the song
     //TODO: add something for the image of the song
@@ -11,6 +12,20 @@ public final class Song {
     public Song(float len, String name){
         this.length = len;
         this.name = name;
+    }
+
+    //starts playing the song.
+    //should update MainActivity.CurrSong
+    //must do whatever else is needed. Like update the music playing bar and/or
+    //music playing screen
+    public void play() {
+        MainActivity.currSong = this;
+        //TODO
+    }
+
+    //pauses the song
+    public void pause() {
+        //TODO
     }
 
     public String getName(){

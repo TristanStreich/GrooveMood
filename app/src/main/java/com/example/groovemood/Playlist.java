@@ -27,6 +27,34 @@ public class Playlist {
         songs = new ArrayList<Song>();
     }
 
+    //starts playing the first song in the playlist
+    public void playFirst(){
+        if (getSongs().size() > 0) {
+            play(getSongs().get(0));
+        }
+    }
+    //plays the given song from the playlist
+    //updates MainActivity.currPlaylist
+    public void play(Song song) {
+        if (getSongs().contains(song)) {
+            MainActivity.currPlaylist = this;
+            song.play();
+            //TODO
+        }
+    }
+
+    //plays the song in the playlist that comes after MainActivity.currSong
+    //if there is no next song. Then change currSong to the first song and pause
+    public void playNext() {
+        //TODO
+    }
+
+    //plays the song in the playlist that comes before MainActivity.currSong
+    //if there is no prev song then restart the song.
+    public void playPrev() {
+        //TODO
+    }
+
     public void addSong(Song song){
         songs.add(song);
     }
