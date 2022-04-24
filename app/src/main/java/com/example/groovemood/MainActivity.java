@@ -20,9 +20,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
+    
 
 
     @Override
