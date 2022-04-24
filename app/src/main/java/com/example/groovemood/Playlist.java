@@ -72,4 +72,19 @@ public class Playlist {
     public float getEnergy(){
         return this.energy;
     }
+
+    //returns the length of the playlist in seconds
+    public float getLength(){
+        float sum = 0;
+        for (Song song : getSongs()){
+            sum += song.getLength();
+        }
+        return sum;
+    }
+
+    //returns the length of the playlist as a string in the format
+    // "mm:ss"
+    public String getReadableLength(){
+        return Song.convertToReadableLength(getLength());
+    }
 }
