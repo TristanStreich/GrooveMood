@@ -7,13 +7,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <Button
-        android:id="@+id/testButton"
+        android:id="@+id/testGeneratePlaylistButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="gotoGeneratePlaylist"
         android:text="Generate Playlist" />
+
+    <Button
+        android:id="@+id/testSongOverlayButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="openSongOverlay"
+        android:text="Open Song Overlay" />
 
 
     <ScrollView

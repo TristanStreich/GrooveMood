@@ -130,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    public void openSongOverlay(View button){
+        Intent songOverlay = new Intent(this, MusicScreen.class);
+        startActivity(songOverlay);
+        //does not finish so we can navigate back with the pop() function
+    }
+
     //navigates to the ViewPlaylist Screen for the given playlist
     public void viewPlaylist(Playlist playlist){
         //TODO
