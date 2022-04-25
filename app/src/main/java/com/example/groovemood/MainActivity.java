@@ -1,25 +1,32 @@
 package com.example.groovemood;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,12 +41,72 @@ public class MainActivity extends AppCompatActivity {
     public static Playlist currPlaylist;
     //TODO: add other fields that are neccessary for the currently playing playlist if needed
 
+    LinearLayout playlistsContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (playlists == null){
+            playlists = new ArrayList<Playlist>();
+            generateTestPlaylists();
+        }
+
+        playlistsContainer = (LinearLayout) findViewById(R.id.playlistsContainer);
+        populateScreen();
     }
+
+
+    private void generateTestPlaylists() {
+        ArrayList<Song> testSongs = new ArrayList<Song>();
+        testSongs.add(new Song(500f,"Test Song 1"));
+        testSongs.add(new Song(185f,"Test Song 2"));
+        testSongs.add(new Song(245f,"Test Song 3"));
+        testSongs.add(new Song(113f,"Test Song 4"));
+        testSongs.add(new Song(267f,"Test Song 5"));
+        testSongs.add(new Song(10000f,"Test Song 6"));
+        testSongs.add(new Song(565f,"Test Song 7"));
+        testSongs.add(new Song(145f,"Test Song 8"));
+        testSongs.add(new Song(207f,"Test Song 9"));
+        testSongs.add(new Song(56f,"Test Song 10"));
+
+
+        Playlist testPlaylist1 = new Playlist("Test Playlist 1", 0f, .75f);
+        testPlaylist1.addSongs(testSongs);
+        playlists.add(testPlaylist1);
+
+        Playlist testPlaylist2 = new Playlist("Test Playlist 2", 0f, .75f);
+        testPlaylist1.addSongs(testSongs);
+        playlists.add(testPlaylist2);
+
+        Playlist testPlaylist3 = new Playlist("Test Playlist 3", 0f, .75f);
+        testPlaylist1.addSongs(testSongs);
+        playlists.add(testPlaylist3);
+
+    }
+
+    private void populateScreen(){
+        for (Playlist playlist : playlists){
+            displayPlaylist(playlist);
+        }
+    }
+
+    private void displayPlaylist(Playlist playlist){
+        View playlistBar = LayoutInflater.from(this).inflate(R.layout.playlist_bar,null);
+        playlistsContainer.addView(playlistBar);
+
+        TextView nameText = playlistBar.findViewById(R.id.playlistName);
+
+        nameText.setText(playlist.getName());
+
+        playlistBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewPlaylist(playlist);
+            }
+        });
+    }
+
 
     //This is called when navigating away from this screen.
     //Use it to save the instance of the screen in static variables
@@ -56,8 +123,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //navigates to the ViewPlaylist Screen for the given playlist
-    public void viewPlaylist(View playlistBar){
+    public void viewPlaylist(Playlist playlist){
         //TODO
+        Toast.makeText(this,
+                playlist.getName(), Toast.LENGTH_SHORT).show();
     }
 
     //opens the song options popup menu at the location of BUTTON
