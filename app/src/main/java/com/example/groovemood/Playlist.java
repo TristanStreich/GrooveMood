@@ -112,6 +112,21 @@ public class Playlist {
     //returns the length of the playlist as a string in the format
     // "mm:ss"
     public String getReadableLength(){
-        return Song.convertToReadableLength(getLength());
+        return readableTime(getLength()/3600);
+    }
+
+    //Returns time as a string in a readable format so it can be printed
+    //Takes in time in hours
+    //1.5 ----> "1h 30m"
+    //2.0 ----> "2h "
+    //0.75 ---> "45m"
+    //0.0 ----> "No Time"
+    public String readableTime(float time){
+        int hours = (int) (time);
+        int minutes = (int) ((time - hours)*60);
+        String hourString = hours != 0 ? String.valueOf(hours) + "h " : "";
+        String minString = minutes != 0 ? String.valueOf(minutes) + "m" : "";
+        String totalString = hourString + minString;
+        return !totalString.isEmpty() ? totalString : "No Time";
     }
 }
