@@ -11,7 +11,8 @@
         android:theme="@style/Theme.GrooveMood">
         <activity
             android:name=".MusicScreen"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.SlideAnimWindow"/>
         <activity
             android:name=".ViewPlaylistScreen"
             android:exported="false" />
