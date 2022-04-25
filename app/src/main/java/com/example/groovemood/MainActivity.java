@@ -71,19 +71,24 @@ public class MainActivity extends AppCompatActivity {
         testSongs.add(new Song(56f,"Test Song 10"));
 
 
-        Playlist testPlaylist1 = new Playlist("Test Playlist 1", 0f, .75f);
-        testPlaylist1.addSongs(testSongs);
-        playlists.add(testPlaylist1);
-
-        Playlist testPlaylist2 = new Playlist("Test Playlist 2", 0f, .75f);
-        testPlaylist1.addSongs(testSongs);
-        playlists.add(testPlaylist2);
-
-        Playlist testPlaylist3 = new Playlist("Test Playlist 3", 0f, .75f);
-        testPlaylist1.addSongs(testSongs);
-        playlists.add(testPlaylist3);
+        makeTestPlaylist(1,testSongs);
+        makeTestPlaylist(2,testSongs);
+        makeTestPlaylist(3,testSongs);
+        makeTestPlaylist(4,testSongs);
+        makeTestPlaylist(5,testSongs);
+        makeTestPlaylist(6,testSongs);
+        makeTestPlaylist(7,testSongs);
+        makeTestPlaylist(8,testSongs);
+        makeTestPlaylist(9,testSongs);
+        makeTestPlaylist(10,testSongs);
 
     }
+
+    private void makeTestPlaylist(int num, ArrayList<Song> songs){
+        Playlist testPlaylist = new Playlist("Test Playlist " + Integer.toString(num), 0.4f, .75f);
+        testPlaylist.addSongs(songs);
+        playlists.add(testPlaylist);}
+
 
     private void populateScreen(){
         for (Playlist playlist : playlists){
@@ -96,8 +101,11 @@ public class MainActivity extends AppCompatActivity {
         playlistsContainer.addView(playlistBar);
 
         TextView nameText = playlistBar.findViewById(R.id.playlistName);
-
         nameText.setText(playlist.getName());
+
+        TextView lengthText = playlistBar.findViewById(R.id.playlistLength);
+        lengthText.setText(playlist.getReadableLength());
+
 
         playlistBar.setOnClickListener(new View.OnClickListener() {
             @Override

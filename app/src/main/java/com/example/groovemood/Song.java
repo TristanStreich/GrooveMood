@@ -50,7 +50,12 @@ public final class Song {
     public static String convertToReadableLength(float len){
         int minutes = (int) Math.floor(len/60f);
         int seconds = (int) Math.round(len - minutes*60);
+        String strSecs = Integer.toString(seconds);
 
-        return Integer.toString(minutes)+":"+Integer.toString(seconds);
+        if (strSecs.length() == 1){
+            strSecs = "0" + strSecs;
+        }
+
+        return Integer.toString(minutes)+":"+strSecs;
     }
 }
