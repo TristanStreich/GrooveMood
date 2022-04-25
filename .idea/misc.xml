@@ -14,11 +14,12 @@
         <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/drawable/test_playlist_image_large.xml" value="0.1785" />
         <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/activity_generate_playlist.xml" value="0.22" />
         <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/activity_music_screen.xml" value="0.1308876811594203" />
+        <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/activity_music_screen.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/activity_view_playlist_screen.xml" value="0.22" />
         <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/fragment_blank.xml" value="0.1308876811594203" />
         <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/fragment_view_playlist.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/playlist_bar.xml" value="0.2388888888888889" />
+        <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/layout/song_bar.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Trist/cs160/GrooveMood/app/src/main/res/menu/song_options_popup.xml" value="0.17552083333333332" />
       </map>
     </option>
