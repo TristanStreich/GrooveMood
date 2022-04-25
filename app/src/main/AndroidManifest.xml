@@ -12,7 +12,7 @@
         <activity
             android:name=".MusicScreen"
             android:exported="false"
-            android:theme="@style/Theme.SlideAnimWindow"/>
+            android:theme="@style/Theme.SlideFromBottom"/>
         <activity
             android:name=".ViewPlaylistScreen"
             android:exported="false" />

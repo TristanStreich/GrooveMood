@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         makeTestPlaylist(8,testSongs);
         makeTestPlaylist(9,testSongs);
         makeTestPlaylist(10,testSongs);
+        makeTestPlaylist(123456789,testSongs);
 
     }
 
@@ -139,8 +141,10 @@ public class MainActivity extends AppCompatActivity {
     //navigates to the ViewPlaylist Screen for the given playlist
     public void viewPlaylist(Playlist playlist){
         //TODO
-        Toast.makeText(this,
-                playlist.getName(), Toast.LENGTH_SHORT).show();
+        Intent playlistScreenIntent = new Intent(this, ViewPlaylistScreen.class);
+        startActivity(playlistScreenIntent);
+
+        ViewPlaylistScreen.thisPlaylist = playlist;
     }
 
     //opens the song options popup menu at the location of BUTTON

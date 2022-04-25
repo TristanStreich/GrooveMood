@@ -21,7 +21,7 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_to_bottom</item>
     </style>
 
-    <style name="Theme.SlideAnimWindow" parent="Theme.GrooveMood">
+    <style name="Theme.SlideFromBottom" parent="Theme.GrooveMood">
         <item name="android:windowAnimationStyle">@style/SlideAnimation</item>
     </style>
 
