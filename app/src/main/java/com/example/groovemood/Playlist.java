@@ -39,7 +39,6 @@ public class Playlist {
         if (getSongs().contains(song)) {
             MainActivity.currPlaylist = this;
             song.play();
-            //TODO
         }
     }
 
