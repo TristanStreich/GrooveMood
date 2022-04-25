@@ -14,15 +14,6 @@ public final class Song {
         this.name = name;
     }
 
-    //starts playing the song.
-    //should update MainActivity.CurrSong
-    //must do whatever else is needed. Like update the music playing bar and/or
-    //music playing screen
-    public void play() {
-        MainActivity.currSong = this;
-        //TODO
-    }
-
     //pauses the song
     public void pause() {
         //TODO

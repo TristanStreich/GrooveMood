@@ -35,10 +35,12 @@ public class Playlist {
     }
     //plays the given song from the playlist
     //updates MainActivity.currPlaylist
+    //Does whatever else needs to be done for this
     public void play(Song song) {
         if (getSongs().contains(song)) {
             MainActivity.currPlaylist = this;
-            song.play();
+            MainActivity.currSong = song;
+            //TODO
         }
     }
 
