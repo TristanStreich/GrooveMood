@@ -58,6 +58,12 @@ public class GeneratePlaylist extends AppCompatActivity {
         super.onDestroy();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navUtils.redrawMusicBar(this);
+    }
+
     public void setUpNavBar(){
         RelativeLayout HomeButton = findViewById(R.id.HomeButton);
         HomeButton.setOnClickListener(new View.OnClickListener() {

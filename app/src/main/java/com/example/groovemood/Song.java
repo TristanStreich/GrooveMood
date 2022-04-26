@@ -14,11 +14,6 @@ public final class Song {
         this.name = name;
     }
 
-    //pauses the song
-    public void pause() {
-        //TODO
-    }
-
     public String getName(){
         return name;
     }
