@@ -8,13 +8,6 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/testGeneratePlaylistButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="gotoGeneratePlaylist"
-        android:text="Generate Playlist" />
-
-    <Button
         android:id="@+id/testSongOverlayButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,12 +17,18 @@
 
     <ScrollView
         android:id="@+id/scrollView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
         <LinearLayout
             android:id="@+id/playlistsContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"></LinearLayout>
     </ScrollView>
+
+
+    <include layout="@layout/nav_bar"
+        android:id="@+id/navBar"/>
+
 </LinearLayout>

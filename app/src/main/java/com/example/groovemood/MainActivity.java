@@ -23,6 +23,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,11 @@ public class MainActivity extends AppCompatActivity {
     //TODO: add other fields that are neccessary for the currently playing playlist if needed
 
     LinearLayout playlistsContainer;
+    LinearLayout navBar;
+    ScrollView scroller;
+
+    public static int scrollX;
+    public static int scrollY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +60,15 @@ public class MainActivity extends AppCompatActivity {
             generateTestPlaylists();
         }
 
-        playlistsContainer = (LinearLayout) findViewById(R.id.playlistsContainer);
+
+
+        playlistsContainer = findViewById(R.id.playlistsContainer);
         populateScreen();
+
+        navBar = findViewById(R.id.navBar);
+        scroller = findViewById(R.id.scrollView);
+        resetScroll();
+        setUpNavBar();
     }
 
     @Override
@@ -62,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         reDrawUI();
     }
+
 
     private void generateTestPlaylists() {
         ArrayList<Song> testSongs = new ArrayList<Song>();
@@ -108,9 +123,37 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void setUpNavBar() {
+        RelativeLayout generatePlaylistButton = findViewById(R.id.GeneratePLaylistButton);
+        generatePlaylistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoGeneratePlaylist(null);
+            }
+        });
+
+        RelativeLayout HomeButton = findViewById(R.id.HomeButton);
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scroller.smoothScrollTo(0,0);
+            }
+        });
+    }
+
     public void reDrawUI(){
         playlistsContainer.removeAllViewsInLayout();
         populateScreen();
+//        resetScroll();
+    }
+
+    public void saveScroll(){
+        scrollX = scroller.getScrollX();
+        scrollY = scroller.getScrollY();
+    }
+
+    public void resetScroll(){
+        scroller.scrollTo(scrollX,scrollY);
     }
 
     private void displayPlaylist(Playlist playlist){
@@ -137,8 +180,9 @@ public class MainActivity extends AppCompatActivity {
     //Use it to save the instance of the screen in static variables
     //so that it can be restored in the onCreate Function
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
+        saveScroll();
     }
 
     public void gotoGeneratePlaylist(View button){
