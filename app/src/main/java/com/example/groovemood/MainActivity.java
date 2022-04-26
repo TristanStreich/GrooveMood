@@ -3,6 +3,7 @@ package com.example.groovemood;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
@@ -45,11 +46,13 @@ public class MainActivity extends AppCompatActivity {
     //TODO: add other fields that are neccessary for the currently playing playlist if needed
 
     LinearLayout playlistsContainer;
-    LinearLayout navBar;
-    ScrollView scroller;
 
+    //TODO: maintain scroll when returning to home screen.
+    ScrollView scroller;
     public static int scrollX;
     public static int scrollY;
+
+    Activity thisContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +63,17 @@ public class MainActivity extends AppCompatActivity {
             generateTestPlaylists();
         }
 
+        thisContext = this;
+
 
 
         playlistsContainer = findViewById(R.id.playlistsContainer);
         populateScreen();
 
-        navBar = findViewById(R.id.navBar);
         scroller = findViewById(R.id.scrollView);
         resetScroll();
         setUpNavBar();
+
     }
 
     @Override
@@ -128,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         generatePlaylistButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gotoGeneratePlaylist(null);
+                navUtils.gotoGeneratePlaylist(thisContext);
             }
         });
 
@@ -137,6 +142,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 scroller.smoothScrollTo(0,0);
+            }
+        });
+
+        ConstraintLayout musicOverlayButton = findViewById(R.id.MusicBar);
+        musicOverlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navUtils.openSongOverlay(thisContext);
             }
         });
     }
@@ -170,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         playlistBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewPlaylist(playlist);
+                navUtils.viewPlaylist(thisContext,playlist);
             }
         });
     }
@@ -183,26 +196,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         saveScroll();
-    }
-
-    public void gotoGeneratePlaylist(View button){
-        Intent genPlay = new Intent(this, GeneratePlaylist.class);
-        startActivity(genPlay);
-        finish();
-    }
-
-    public void openSongOverlay(View button){
-        Intent songOverlay = new Intent(this, MusicScreen.class);
-        startActivity(songOverlay);
-        //does not finish so we can navigate back with the pop() function
-    }
-
-    //navigates to the ViewPlaylist Screen for the given playlist
-    public void viewPlaylist(Playlist playlist){
-        Intent playlistScreenIntent = new Intent(this, ViewPlaylistScreen.class);
-        startActivity(playlistScreenIntent);
-
-        ViewPlaylistScreen.thisPlaylist = playlist;
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.groovemood;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 
 import android.app.Activity;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class GeneratePlaylist extends AppCompatActivity {
@@ -21,6 +23,8 @@ public class GeneratePlaylist extends AppCompatActivity {
     public static float happySad;
     public static float energy;
 
+    Activity thisContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,9 @@ public class GeneratePlaylist extends AppCompatActivity {
             TextView counter = (TextView) findViewById(R.id.counter);
             counter.setText(counterVal);
         }
+
+        thisContext = this;
+        setUpNavBar();
     }
 
     //This is called when navigating away from this screen.
@@ -41,17 +48,28 @@ public class GeneratePlaylist extends AppCompatActivity {
         counterVal = (String) counter.getText();
     }
 
+    public void setUpNavBar(){
+        RelativeLayout HomeButton = findViewById(R.id.HomeButton);
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navUtils.goHome(thisContext);
+            }
+        });
+
+        ConstraintLayout musicOverlayButton = findViewById(R.id.MusicBar);
+        musicOverlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navUtils.openSongOverlay(thisContext);
+            }
+        });
+    }
+
 
     public void generatePlaylist(){
         //TODO: make a new playlist object based on the happy/Sad and energy and add
         //      it to the playlists list in MainActivity
-    }
-
-    //navigates to the home screen.
-    public void goHome(View button){
-        Intent home = new Intent(this, MainActivity.class);
-        startActivity(home);
-        finish();
     }
 
     public void increment(View v) {

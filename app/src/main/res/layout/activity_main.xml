@@ -7,12 +7,14 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/testSongOverlayButton"
+    <TextView
+        android:id="@+id/PlaylistText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="openSongOverlay"
-        android:text="Open Song Overlay" />
+        android:text="Playlists"
+        android:gravity="center"
+        android:textSize="50sp"/>
+<!--        android:textAppearance="bold"/>-->
 
 
     <ScrollView
