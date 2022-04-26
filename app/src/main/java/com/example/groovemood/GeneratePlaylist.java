@@ -1,8 +1,11 @@
 package com.example.groovemood;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.Navigation;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class GeneratePlaylist extends AppCompatActivity {
 
@@ -27,11 +32,12 @@ public class GeneratePlaylist extends AppCompatActivity {
     public static float happySad;
     public static float energy;
 
+    Activity thisContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_playlist);
-
         moodSelection = (ImageView) findViewById(R.id.mood_selector);
         moodSelection.setBackgroundResource(R.drawable.mood_selector);
         moodSelection.setOnTouchListener(handleTouch);
@@ -40,6 +46,8 @@ public class GeneratePlaylist extends AppCompatActivity {
         playlistNameField = (EditText) findViewById(R.id.playlist_name_textfield);
         playlistNameField.setText(String.format("Playlist #%d", numPlaylists+1));
         playlistNameField.selectAll();
+        thisContext = this;
+        setUpNavBar();
     }
 
     //This is called when navigating away from this screen.
@@ -48,6 +56,24 @@ public class GeneratePlaylist extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void setUpNavBar(){
+        RelativeLayout HomeButton = findViewById(R.id.HomeButton);
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navUtils.goHome(thisContext);
+            }
+        });
+
+        ConstraintLayout musicOverlayButton = findViewById(R.id.MusicBar);
+        musicOverlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navUtils.openSongOverlay(thisContext);
+            }
+        });
     }
 
 
@@ -98,8 +124,6 @@ public class GeneratePlaylist extends AppCompatActivity {
         public boolean onTouch(View v, MotionEvent event) {
             int x = (int) event.getX();
             int y = (int) event.getY();
-            Log.d("debug", "x" + Integer.toString(x));
-            Log.d("debug", "y" + Integer.toString(y));
 
             energy = (x-v.getWidth())/v.getWidth()/2;
             happySad = (y-v.getHeight())/v.getHeight()/2;
@@ -122,3 +146,4 @@ public class GeneratePlaylist extends AppCompatActivity {
         }
     };
 }
+

@@ -2,7 +2,9 @@ package com.example.groovemood;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +28,8 @@ public class ViewPlaylistScreen extends AppCompatActivity {
     public TextView songName;
     public TextView songLength;
 
+    Activity thisContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +40,9 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         songLength = (TextView) findViewById(R.id.playlistLength);
 
         populate();
+
+        thisContext = this;
+        setUpNavBar();
     }
 
     public void populate() {
@@ -50,6 +58,32 @@ public class ViewPlaylistScreen extends AppCompatActivity {
     public void reDrawUI(){
         songContainer.removeAllViewsInLayout();
         populate();
+    }
+
+    public void setUpNavBar(){
+        RelativeLayout generatePlaylistButton = findViewById(R.id.GeneratePLaylistButton);
+        generatePlaylistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navUtils.gotoGeneratePlaylist(thisContext);
+            }
+        });
+
+        RelativeLayout HomeButton = findViewById(R.id.HomeButton);
+        HomeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navUtils.goHome(thisContext);
+            }
+        });
+
+        ConstraintLayout musicOverlayButton = findViewById(R.id.MusicBar);
+        musicOverlayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                navUtils.openSongOverlay(thisContext);
+            }
+        });
     }
 
     public void makeSongBar(Song song){
@@ -152,7 +186,4 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         menu.show();
     }
 
-    public void closePlaylistScreen(View button){
-        finish();
-    }
 }
