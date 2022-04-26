@@ -10,9 +10,34 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
+<!--        <item name="android:alertDialogTheme">@style/alertDialogStyle</item>-->
+
+
         <item name="android:popupMenuStyle">@style/PopUp</item>
         <item name="android:textAppearanceLargePopupMenu">@style/PopUpText</item>
     </style>
+
+
+<!--    <style name="alertDialogStyle" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">-->
+<!--        &lt;!&ndash; Background Color&ndash;&gt;-->
+<!--        <item name="android:background">@color/main_blue</item>-->
+<!--        &lt;!&ndash; Text Color for title and message &ndash;&gt;-->
+<!--        <item name="colorOnSurface">@color/white</item>-->
+<!--        &lt;!&ndash; Style for positive button &ndash;&gt;-->
+<!--        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>-->
+<!--        &lt;!&ndash; Style for negative button &ndash;&gt;-->
+<!--        <item name="buttonBarNegativeButtonStyle">@style/PositiveButtonStyle</item>-->
+<!--        <item name="buttonBarNeutralButtonStyle">@style/PositiveButtonStyle</item>-->
+<!--    </style>-->
+
+<!--&lt;!&ndash;    parent="@style/Widget.MaterialComponents.Button">&ndash;&gt;-->
+<!--    <style name="PositiveButtonStyle">-->
+<!--        &lt;!&ndash; text color for the button &ndash;&gt;-->
+<!--        <item name="android:textColor">@color/white</item>-->
+<!--        &lt;!&ndash; Background tint for the button &ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="backgroundTint">@color/main_blue</item>&ndash;&gt;-->
+<!--&lt;!&ndash;        <item name="android:backgroundDimEnabled">false</item>&ndash;&gt;-->
+<!--    </style>-->
 
     <style name="SlideAnimation" parent="android:style/Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/slide_from_bottom</item>

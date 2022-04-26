@@ -57,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
         populateScreen();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reDrawUI();
+    }
 
     private void generateTestPlaylists() {
         ArrayList<Song> testSongs = new ArrayList<Song>();
@@ -84,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
         makeTestPlaylist(10,testSongs);
         makeTestPlaylist(123456789,testSongs);
 
+        Playlist testPlaylist = new Playlist("short", 0.4f, .75f);
+        testPlaylist.addSongs(testSongs);
+        playlists.add(testPlaylist);
+
     }
 
     private void makeTestPlaylist(int num, ArrayList<Song> songs){
@@ -93,9 +102,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void populateScreen(){
+        //TODO: handle no Playlists
         for (Playlist playlist : playlists){
             displayPlaylist(playlist);
         }
+    }
+
+    public void reDrawUI(){
+        playlistsContainer.removeAllViewsInLayout();
+        populateScreen();
     }
 
     private void displayPlaylist(Playlist playlist){

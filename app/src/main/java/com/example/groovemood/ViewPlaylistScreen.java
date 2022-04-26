@@ -1,22 +1,29 @@
 package com.example.groovemood;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class ViewPlaylistScreen extends AppCompatActivity {
 
     public static Playlist thisPlaylist;
 
     public LinearLayout songContainer;
+    public TextView songName;
+    public TextView songLength;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,16 +31,25 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         setContentView(R.layout.activity_view_playlist_screen);
         songContainer = findViewById(R.id.songContainer);
 
-        populate(thisPlaylist);
+        songName = (TextView) findViewById(R.id.playlistName);
+        songLength = (TextView) findViewById(R.id.playlistLength);
+
+        populate();
     }
 
-    public void populate(Playlist playlist) {
-        ((TextView) findViewById(R.id.playlistName)).setText(playlist.getName());
-        ((TextView) findViewById(R.id.playlistLength)).setText(playlist.getReadableLength());
+    public void populate() {
+        //TODO: handle empty playlist
+        songName.setText(thisPlaylist.getName());
+        songLength.setText(thisPlaylist.getReadableLength());
 
-        for (Song song : playlist.getSongs()){
+        for (Song song : thisPlaylist.getSongs()){
             makeSongBar(song);
         }
+    }
+
+    public void reDrawUI(){
+        songContainer.removeAllViewsInLayout();
+        populate();
     }
 
     public void makeSongBar(Song song){
@@ -57,13 +73,52 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         });
 
         //options song option pop up when clicked
-        Button songOptions = (Button) songBar.findViewById(R.id.songOptions);
+        View songOptions = songBar.findViewById(R.id.songOptions);
         songOptions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openSongOptions(songOptions,song);
             }
         });
+    }
+
+    public void openRenameDialog(View button){
+        EditText editText = new EditText(this);
+        AlertDialog.Builder renameDialog = new AlertDialog.Builder(this);
+        renameDialog.setTitle("Enter New Name");
+        renameDialog.setView(editText);
+        editText.setText(thisPlaylist.getName());
+        renameDialog.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String newName = editText.getText().toString();
+                if (newName != null && newName.length() >= 1){
+                    thisPlaylist.setName(newName);
+                    reDrawUI();
+                }
+            }
+        });
+        renameDialog.setNegativeButton("Cancel", null);
+
+        renameDialog.show();
+    }
+
+    public void openDeleteDialog(Song song){
+        AlertDialog.Builder renameDialog = new AlertDialog.Builder(this);
+//        new MaterialAlertDialogBuilder(this,
+//                R.style.alertDialogStyle);
+        renameDialog.setTitle("Are you sure you want to delete " +
+                                song.getName() + " from " + thisPlaylist.getName() + "?");
+        renameDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                thisPlaylist.removeSong(song);
+                reDrawUI();
+            }
+        });
+        renameDialog.setNeutralButton("No", null);
+
+        renameDialog.show();
     }
 
 
@@ -78,8 +133,7 @@ public class ViewPlaylistScreen extends AppCompatActivity {
                                 "TODO: Queue " + song.getName(), Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.removeSong:
-                        Toast.makeText(button.getContext(),
-                                "TODO: Remove " + song.getName(), Toast.LENGTH_SHORT).show();
+                        openDeleteDialog(song);
                         return true;
                     default:
                         return false;
