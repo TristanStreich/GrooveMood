@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     //All the previously created playlists
     public static ArrayList<Playlist> playlists;
 
+    //if current song is paused
+    public static boolean playing;
+
     //Currently Playing song
     public static Song currSong;
     //TODO: add other fields that are neccessary for the currently playing song if needed
@@ -126,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
         for (Playlist playlist : playlists){
             displayPlaylist(playlist);
         }
+        navUtils.redrawMusicBar(this);
     }
 
     public void setUpNavBar() {
@@ -150,6 +154,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 navUtils.openSongOverlay(thisContext);
+            }
+        });
+
+        View next = findViewById(R.id.musicBarNext);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                currPlaylist.playNext();
+                reDrawUI();
+            }
+        });
+        View prev = findViewById(R.id.musicBarPrev);
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                currPlaylist.playPrev();
+                reDrawUI();
+            }
+        });
+        View playPause = findViewById(R.id.musicBarPlayPause);
+        playPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                if (MainActivity.playing){
+                    currPlaylist.pause();
+                } else {
+                    currPlaylist.resume();
+                }
+                reDrawUI();
             }
         });
     }
@@ -197,5 +233,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         saveScroll();
     }
+
+
 
 }

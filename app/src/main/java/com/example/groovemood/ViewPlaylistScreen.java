@@ -53,6 +53,8 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         for (Song song : thisPlaylist.getSongs()){
             makeSongBar(song);
         }
+
+        navUtils.redrawMusicBar(this);
     }
 
     public void reDrawUI(){
@@ -84,6 +86,38 @@ public class ViewPlaylistScreen extends AppCompatActivity {
                 navUtils.openSongOverlay(thisContext);
             }
         });
+
+        View next = findViewById(R.id.musicBarNext);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                MainActivity.currPlaylist.playNext();
+                reDrawUI();
+            }
+        });
+        View prev = findViewById(R.id.musicBarPrev);
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                MainActivity.currPlaylist.playPrev();
+                reDrawUI();
+            }
+        });
+        View playPause = findViewById(R.id.musicBarPlayPause);
+        playPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                if (MainActivity.playing){
+                    MainActivity.currPlaylist.pause();
+                } else {
+                    MainActivity.currPlaylist.resume();
+                }
+                reDrawUI();
+            }
+        });
     }
 
     public void makeSongBar(Song song){
@@ -101,8 +135,7 @@ public class ViewPlaylistScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 thisPlaylist.play(song);
-                Toast.makeText(songBar.getContext(),
-                        "TODO: Play " + song.getName() + " from " + thisPlaylist.getName(), Toast.LENGTH_SHORT).show();
+                reDrawUI();
             }
         });
 
@@ -137,6 +170,11 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         renameDialog.show();
     }
 
+    public void playThisPlaylist(View button){
+        thisPlaylist.playFirst();
+        reDrawUI();
+    }
+
     public void openDeleteDialog(Song song){
         AlertDialog.Builder renameDialog = new AlertDialog.Builder(this);
 //        new MaterialAlertDialogBuilder(this,
@@ -146,6 +184,7 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         renameDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                thisPlaylist.playNext();
                 thisPlaylist.removeSong(song);
                 reDrawUI();
             }

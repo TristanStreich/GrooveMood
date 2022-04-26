@@ -48,6 +48,12 @@ public class GeneratePlaylist extends AppCompatActivity {
         counterVal = (String) counter.getText();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navUtils.redrawMusicBar(this);
+    }
+
     public void setUpNavBar(){
         RelativeLayout HomeButton = findViewById(R.id.HomeButton);
         HomeButton.setOnClickListener(new View.OnClickListener() {

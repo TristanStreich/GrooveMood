@@ -42,6 +42,7 @@ public class Playlist {
         if (getSongs().contains(song)) {
             MainActivity.currPlaylist = this;
             MainActivity.currSong = song;
+            MainActivity.playing = true;
             //TODO
         }
     }
@@ -49,13 +50,43 @@ public class Playlist {
     //plays the song in the playlist that comes after MainActivity.currSong
     //if there is no next song. Then change currSong to the first song and pause
     public void playNext() {
-        //TODO
+        int currIndex = getSongs().indexOf(MainActivity.currSong);
+        if (currIndex == -1){
+            return;
+        }
+
+        if (currIndex < getSongs().size() - 1){
+            //play next
+            play(getSongs().get(currIndex+1));
+        } else {
+            //go to beginning and pause
+            playFirst();
+            pause();
+        }
     }
 
     //plays the song in the playlist that comes before MainActivity.currSong
     //if there is no prev song then restart the song.
     public void playPrev() {
         //TODO
+        int currIndex = getSongs().indexOf(MainActivity.currSong);
+        if (currIndex <= 0){
+            return;
+        }
+
+        play(getSongs().get(currIndex-1));
+    }
+
+    //pauses the song
+    public void pause() {
+        //TODO
+        MainActivity.playing = false;
+    }
+
+    //resumes the song
+    public void resume(){
+        //TODO
+        MainActivity.playing = true;
     }
 
     public void addSong(Song song){
