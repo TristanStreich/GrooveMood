@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void populateScreen(){
         //TODO: handle no Playlists
-        for (Playlist playlist : playlists){
-            displayPlaylist(playlist);
+        for (int i = playlists.size() - 1; i >= 0; i --){
+            displayPlaylist(playlists.get(i));
         }
         navUtils.redrawMusicBar(this);
     }

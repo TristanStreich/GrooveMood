@@ -61,6 +61,10 @@ public class GeneratePlaylist extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        reDrawUI();
+    }
+
+    private void reDrawUI(){
         navUtils.redrawMusicBar(this);
     }
 
@@ -80,12 +84,42 @@ public class GeneratePlaylist extends AppCompatActivity {
                 navUtils.openSongOverlay(thisContext);
             }
         });
+
+        View next = findViewById(R.id.musicBarNext);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                MainActivity.currPlaylist.playNext();
+                reDrawUI();
+            }
+        });
+        View prev = findViewById(R.id.musicBarPrev);
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                MainActivity.currPlaylist.playPrev();
+                reDrawUI();
+            }
+        });
+        View playPause = findViewById(R.id.musicBarPlayPause);
+        playPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (MainActivity.currPlaylist == null) return;
+                if (MainActivity.playing){
+                    MainActivity.currPlaylist.pause();
+                } else {
+                    MainActivity.currPlaylist.resume();
+                }
+                reDrawUI();
+            }
+        });
     }
 
 
     public void generatePlaylist(View button){
-        //TODO: make a new playlist object based on the happy/Sad and energy and add
-        //      it to the playlists list in MainActivity
 
         ArrayList<Song> testSongs = new ArrayList<Song>();
         testSongs.add(new Song(500f,"Test Song 1"));
