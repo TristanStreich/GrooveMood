@@ -189,7 +189,7 @@ public class ViewPlaylistScreen extends AppCompatActivity {
                 reDrawUI();
             }
         });
-        renameDialog.setNeutralButton("No", null);
+        renameDialog.setNegativeButton("No", null);
 
         renameDialog.show();
     }
