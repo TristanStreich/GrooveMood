@@ -28,6 +28,7 @@ public class MusicScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GrooveMood.currActivity = this;
         setContentView(R.layout.activity_music_screen);
 
         TextView songName = this.findViewById(R.id.textView2);
@@ -121,7 +122,7 @@ public class MusicScreen extends AppCompatActivity {
         }
     }
 
-    private void updateProgressTime(){
+    private void updateProgressTime() {
         float currProg = GrooveMood.mp.getCurrentPosition()*0.001f;
         float len = MainActivity.currSong.getLength();
         TextView prog = findViewById(R.id.progressTime);

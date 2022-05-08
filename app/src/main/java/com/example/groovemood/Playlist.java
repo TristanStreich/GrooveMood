@@ -35,7 +35,7 @@ public class Playlist {
 
     public static int convertToColor(float happySad, float energy){
         float saturation = 1f;//0.6f + energy*0.4f;
-        float light = .70f - energy*.20f;//.5f;
+        float light = .65f - energy*.15f;//.5f;
         //make happy color
         float hue = 50f;
         float []HSL = new float []{hue,saturation,light};
@@ -69,6 +69,15 @@ public class Playlist {
                 GrooveMood.mp.stop();
             }
             GrooveMood.mp = MediaPlayer.create(GrooveMood.getAppContext(), song.getAudioID());
+            GrooveMood.mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    playNext();
+                    navUtils.redrawMusicBar(GrooveMood.currActivity);
+                }
+
+            });
             GrooveMood.mp.start();
         }
     }

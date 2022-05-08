@@ -12,7 +12,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -36,18 +39,35 @@ public class GeneratePlaylist extends AppCompatActivity {
     private static Integer savedX;
     private static Integer savedY;
 
+    private static String savedName;
+
     Activity thisContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GrooveMood.currActivity = this;
         setContentView(R.layout.activity_generate_playlist);
         moodSelection = (ImageView) findViewById(R.id.mood_selector);
         moodSelection.setOnTouchListener(handleTouch);
 
         int numPlaylists = MainActivity.playlists.size();
         playlistNameField = (EditText) findViewById(R.id.playlist_name_textfield);
-        playlistNameField.setText(String.format("Playlist #%d", numPlaylists+1));
+        if (savedName == null) {
+            playlistNameField.setText(String.format("Playlist #%d", numPlaylists + 1));
+        } else {
+            playlistNameField.setText(savedName);
+        }
+        playlistNameField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2){};
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                savedName = playlistNameField.getText().toString();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
         playlistNameField.selectAll();
         thisContext = this;
         setUpNavBar();
@@ -141,6 +161,7 @@ public class GeneratePlaylist extends AppCompatActivity {
         }
         savedX = null;
         savedY = null;
+        savedName = null;
 
         ArrayList<Song> testSongs = new ArrayList<Song>();
         testSongs.add(new Song(500f,"Test Song 1"));
@@ -165,7 +186,6 @@ public class GeneratePlaylist extends AppCompatActivity {
         Intent home = new Intent(this, MainActivity.class);
         startActivity(home);
         finish();
-
     }
 
     //navigates to the home screen.

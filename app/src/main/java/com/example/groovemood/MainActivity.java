@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GrooveMood.currActivity = this;
         setTheme(R.style.Theme_GrooveMood);
         setContentView(R.layout.activity_main);
         if (playlists == null){
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         testPlaylist.addSongs(testSongs);
         playlists.add(testPlaylist);
 
-        testPlaylist = new Playlist("Sunday Morning", 1f, 0f);
+        testPlaylist = new Playlist("Sunday Morning", 1f, -1f);
         testPlaylist.addSongs(testSongs);
         playlists.add(testPlaylist);
 

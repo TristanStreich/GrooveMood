@@ -45,7 +45,7 @@
         android:layout_height="49dp"
         android:layout_marginTop="32dp"
         android:width="394dp"
-        android:hint="hint"
+        android:hint="Playlist Name"
         android:inputType="text"
         android:maxLines="1"
         android:selectAllOnFocus="true"
