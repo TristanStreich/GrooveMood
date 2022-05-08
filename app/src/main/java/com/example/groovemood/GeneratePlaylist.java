@@ -9,11 +9,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -31,6 +33,8 @@ public class GeneratePlaylist extends AppCompatActivity {
     //must be between -1 and 1
     public static float happySad;
     public static float energy;
+    private static Integer savedX;
+    private static Integer savedY;
 
     Activity thisContext;
 
@@ -39,7 +43,6 @@ public class GeneratePlaylist extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_playlist);
         moodSelection = (ImageView) findViewById(R.id.mood_selector);
-        moodSelection.setBackgroundResource(R.drawable.mood_selector);
         moodSelection.setOnTouchListener(handleTouch);
 
         int numPlaylists = MainActivity.playlists.size();
@@ -48,6 +51,18 @@ public class GeneratePlaylist extends AppCompatActivity {
         playlistNameField.selectAll();
         thisContext = this;
         setUpNavBar();
+
+        if (savedX != null) {
+            moodSelection.post(new Runnable() {
+                @Override
+                public void run() {
+                    drawCircle(moodSelection, savedX, savedY);
+                }
+            });
+        } else {
+            Button button = findViewById(R.id.button2);
+            button.setBackgroundColor(getResources().getColor(R.color.alt_blue));
+        }
     }
 
     //This is called when navigating away from this screen.
@@ -120,6 +135,12 @@ public class GeneratePlaylist extends AppCompatActivity {
 
 
     public void generatePlaylist(View button){
+        if (savedX == null){
+//            Toast.makeText(GeneratePlaylist.this, "Must Select Mood Before Making Playlist", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        savedX = null;
+        savedY = null;
 
         ArrayList<Song> testSongs = new ArrayList<Song>();
         testSongs.add(new Song(500f,"Test Song 1"));
@@ -162,28 +183,49 @@ public class GeneratePlaylist extends AppCompatActivity {
         @SuppressLint("ResourceAsColor")
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            int x = (int) event.getX();
-            int y = (int) event.getY();
+            float buffer = 0.02f;
 
-            energy = (x-v.getWidth())/v.getWidth()/2;
-            happySad = (y-v.getHeight())/v.getHeight()/2;
-            //Toast.makeText(GeneratePlaylist.this, "x = " + x + ", y = " + y, Toast.LENGTH_LONG).show();
+            savedX = (int) event.getX();
+            savedY = (int) event.getY();
 
-            Paint paint = new Paint();
-            int radius;
-            radius = 15;
-            paint.setStyle(Paint.Style.FILL);
-            paint.setColor(R.color.alt_blue);
-            // Create a bitmap object of your view size
-            Bitmap bmp = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-            // Create the canvas with the bitmap
-            Canvas canvas = new Canvas(bmp);
-            canvas.drawCircle(x, y, radius, paint);
-            // Set the bitmap to the imageView
-            ImageView iv = (ImageView) v;
-            iv.setImageBitmap(bmp);
+            //Keeps the circle in the graph
+            savedX = Math.max(savedX,(int)  (v.getWidth()*buffer));
+            savedX = Math.min(savedX, (int) (v.getWidth()*(1-buffer)));
+            savedY = Math.max(savedY,(int)  (v.getHeight()*buffer));
+            savedY = Math.min(savedY, (int) (v.getHeight()*(1-buffer)));
+
+
+
+            drawCircle(v, savedX, savedY);
+
             return true;
         }
     };
+
+
+    void drawCircle(View v, int x, int y){
+        energy = (x-v.getWidth()/2f)/((float) v.getWidth())*2;
+        happySad = -(y-v.getHeight()/2f)/((float) v.getWidth())*2;
+//        Toast.makeText(GeneratePlaylist.this, "energy = " + energy + ", happySad = " + happySad, Toast.LENGTH_SHORT).show();
+
+        Paint paint = new Paint();
+        int radius;
+        radius = 50;
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(getResources().getColor(R.color.alt_blue));
+        // Create a bitmap object of your view size
+        Bitmap bmp = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
+        // Create the canvas with the bitmap
+        Canvas canvas = new Canvas(bmp);
+        canvas.drawCircle(x, y, radius, paint);
+        // Set the bitmap to the imageView
+        ImageView iv = (ImageView) v;
+        iv.setImageBitmap(bmp);
+
+
+        //also set button to correct color. To show that playlist can now be created
+        Button button = findViewById(R.id.button2);
+        button.setBackgroundColor(getResources().getColor(R.color.main_blue));
+    }
 }
 

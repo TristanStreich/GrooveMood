@@ -2,6 +2,7 @@ package com.example.groovemood;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,10 +17,10 @@ import java.util.ArrayList;
 
 public class MusicScreen extends AppCompatActivity {
 
-    public LinearLayout musicContainer;
     Activity thisContext;
 
     public static Playlist thisPlaylist;
+    private static Thread thread;
 
     public TextView songName;
     public TextView songLength;
@@ -28,7 +29,6 @@ public class MusicScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_screen);
-        musicContainer = findViewById(R.id.musicContainer);
 
         TextView songName = this.findViewById(R.id.textView2);
         if (songName == null || MainActivity.currSong == null){
@@ -38,6 +38,8 @@ public class MusicScreen extends AppCompatActivity {
 
         setUpControls();
         thisContext = this;
+        thread = null;
+        reDrawUI();
     }
 
     public void setUpControls(){
@@ -75,12 +77,41 @@ public class MusicScreen extends AppCompatActivity {
         });
     }
 //
-    public void populate() {
+
+    public void reDrawUI(){
         TextView songName = this.findViewById(R.id.textView2);
         if (songName == null || MainActivity.currSong == null){
             return;
         }
         songName.setText(MainActivity.currSong.getName());
+
+        TextView songLength = this.findViewById(R.id.songLength);
+        songLength.setText(MainActivity.currSong.getReadableLength());
+
+        updateProgressTime();
+
+        if (thread == null) {
+            thread = new Thread() {
+
+                @Override
+                public void run() {
+                    try {
+                        while (!this.isInterrupted()) {
+                            Thread.sleep(250);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    updateProgressTime();
+                                }
+                            });
+                        }
+                    } catch (InterruptedException e) {
+                    }
+                }
+            };
+            thread.start();
+        }
+
 
         ImageView playPause = this.findViewById(R.id.imageButton4);
         if (!MainActivity.playing){
@@ -90,9 +121,18 @@ public class MusicScreen extends AppCompatActivity {
         }
     }
 
-    public void reDrawUI(){
-        musicContainer.removeAllViewsInLayout();
-        populate();
+    private void updateProgressTime(){
+        float currProg = GrooveMood.mp.getCurrentPosition()*0.001f;
+        float len = MainActivity.currSong.getLength();
+        TextView prog = findViewById(R.id.progressTime);
+        prog.setText(Song.convertToReadableLength(currProg));
+
+        //moves the progress bar
+        ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.setHorizontalBias(R.id.progress_circle, currProg/len);
+        constraintSet.applyTo(constraintLayout);
     }
 
     public void closeSongOverlay(View button){

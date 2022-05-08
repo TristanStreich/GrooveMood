@@ -9,9 +9,7 @@
     tools:context=".MusicScreen">
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="@android:color/white"
@@ -60,11 +58,9 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="81dp"
-        android:layout_marginBottom="37dp"
         android:text="Song Name"
         android:textSize="48sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/imageView6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView5" />
@@ -97,20 +93,61 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/down_button" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="531dp"
-        android:layout_marginEnd="17dp"
-        android:layout_marginBottom="21dp"
+    <View
+        android:id="@+id/barBackGround"
+        android:layout_width="275dp"
+        android:layout_height="7dp"
+        android:layout_marginBottom="24dp"
+        android:background="@color/alt_blue"
+        android:text="Button"
         app:layout_constraintBottom_toTopOf="@+id/imageButton4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/song_progress_bar" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/barForeGround"
+        android:layout_width="0dp"
+        android:layout_height="7dp"
+        android:background="@color/main_blue"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/barBackGround"
+        app:layout_constraintEnd_toEndOf="@+id/progress_circle"
+        android:layout_marginEnd="7.5dp"
+        app:layout_constraintStart_toStartOf="@+id/barBackGround"
+        app:layout_constraintTop_toTopOf="@+id/barBackGround" />
+
+    <ImageView
+        android:id="@+id/progress_circle"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/barBackGround"
+        app:layout_constraintEnd_toEndOf="@+id/barBackGround"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/barBackGround"
+        app:layout_constraintTop_toTopOf="@+id/barBackGround"
+        app:srcCompat="@drawable/progress_circle" />
+
+    <TextView
+        android:id="@+id/songLength"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4:20"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/barBackGround"
+        app:layout_constraintStart_toEndOf="@+id/barBackGround"
+        app:layout_constraintTop_toTopOf="@+id/barBackGround" />
+
+    <TextView
+        android:id="@+id/progressTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0:00"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/barBackGround"
+        app:layout_constraintEnd_toStartOf="@+id/barBackGround"
+        app:layout_constraintTop_toTopOf="@+id/barBackGround" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

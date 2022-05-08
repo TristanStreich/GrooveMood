@@ -10,10 +10,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Added Colors-->
-    <color name="main_blue">#399AE0</color>
-    <color name="alt_blue">#9ED5FD</color>
-    <color name="spotify_green">#1DB954</color>
-    <color name="spotify_black">#191414</color>
+    <color name="main_blue">#FF399AE0</color>
+    <color name="alt_blue">#FF9ED5FD</color>
+    <color name="spotify_green">#FF1DB954</color>
+    <color name="spotify_black">#FF191414</color>
 
 
 </resources>

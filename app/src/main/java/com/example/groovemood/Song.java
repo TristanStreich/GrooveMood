@@ -1,18 +1,30 @@
 package com.example.groovemood;
 
+import android.media.MediaMetadataRetriever;
+
 public final class Song {
 
     private final float length;  //length of the song in seconds.
     private final String name;
     private Playlist playlist;
+    private final int audioID;
 
     //TODO: add somethings for the audio of the song
     //TODO: add something for the image of the song
 
     public Song(float len, String name){
-        this.length = len;
+        length = GrooveMood.getLength(R.raw.rick_roll);
         this.name = name;
+        this.audioID = R.raw.rick_roll;
     }
+
+    public Song(String name, int id){
+        length = GrooveMood.getLength(id);
+        this.name = name;
+        this.audioID = id;
+    }
+
+    public int getAudioID() { return this.audioID;}
 
     public String getName(){
         return name;

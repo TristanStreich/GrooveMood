@@ -12,18 +12,32 @@
     android:layout_height="0dp"
     android:layout_weight="1">
 
+
     <ImageView
-        android:id="@+id/mood_selector"
+        android:id="@+id/mood_selector_graph"
         android:layout_width="394dp"
         android:layout_height="394dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.056"
         app:srcCompat="@drawable/mood_selector" />
+
+    <ImageView
+        android:id="@+id/mood_selector"
+        android:layout_width="330dp"
+        android:layout_height="327dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/mood_selector_graph"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/mood_selector_graph"
+        app:layout_constraintVertical_bias="0.68"/>
+
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/playlist_name_textfield"
@@ -38,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mood_selector" />
+        app:layout_constraintTop_toBottomOf="@+id/mood_selector_graph" />
 
     <Button
         android:id="@+id/button2"
@@ -50,6 +64,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/playlist_name_textfield" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

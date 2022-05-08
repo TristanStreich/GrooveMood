@@ -1,5 +1,6 @@
 package com.example.groovemood;
 
+import android.media.MediaPlayer;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -43,7 +44,12 @@ public class Playlist {
             MainActivity.currPlaylist = this;
             MainActivity.currSong = song;
             MainActivity.playing = true;
-            //TODO
+
+            if (GrooveMood.mp != null){
+                GrooveMood.mp.stop();
+            }
+            GrooveMood.mp = MediaPlayer.create(GrooveMood.getAppContext(), song.getAudioID());
+            GrooveMood.mp.start();
         }
     }
 
@@ -68,7 +74,6 @@ public class Playlist {
     //plays the song in the playlist that comes before MainActivity.currSong
     //if there is no prev song then restart the song.
     public void playPrev() {
-        //TODO
         int currIndex = getSongs().indexOf(MainActivity.currSong);
         if (currIndex <= 0){
             return;
@@ -79,14 +84,17 @@ public class Playlist {
 
     //pauses the song
     public void pause() {
-        //TODO
         MainActivity.playing = false;
+        if (GrooveMood.mp == null){
+            return;
+        }
+        GrooveMood.mp.pause();
     }
 
     //resumes the song
     public void resume(){
-        //TODO
         MainActivity.playing = true;
+        GrooveMood.mp.start();
     }
 
     public void addSong(Song song){
