@@ -33,7 +33,6 @@ public class ViewPlaylistScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GrooveMood.currActivity = this;
         setContentView(R.layout.activity_view_playlist_screen);
         songContainer = findViewById(R.id.songContainer);
 
@@ -69,6 +68,7 @@ public class ViewPlaylistScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        GrooveMood.currActivity = this;
         reDrawUI();
     }
 

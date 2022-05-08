@@ -46,7 +46,6 @@ public class GeneratePlaylist extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GrooveMood.currActivity = this;
         setContentView(R.layout.activity_generate_playlist);
         moodSelection = (ImageView) findViewById(R.id.mood_selector);
         moodSelection.setOnTouchListener(handleTouch);
@@ -96,6 +95,7 @@ public class GeneratePlaylist extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        GrooveMood.currActivity = this;
         reDrawUI();
     }
 

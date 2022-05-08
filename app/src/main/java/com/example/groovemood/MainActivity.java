@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GrooveMood.currActivity = this;
         setTheme(R.style.Theme_GrooveMood);
         setContentView(R.layout.activity_main);
         if (playlists == null){
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        GrooveMood.currActivity = this;
         reDrawUI();
     }
 
