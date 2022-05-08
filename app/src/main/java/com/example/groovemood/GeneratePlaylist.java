@@ -212,7 +212,7 @@ public class GeneratePlaylist extends AppCompatActivity {
         int radius;
         radius = 50;
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(getResources().getColor(R.color.alt_blue));
+        paint.setColor(Playlist.convertToColor(happySad,energy));
         // Create a bitmap object of your view size
         Bitmap bmp = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
         // Create the canvas with the bitmap

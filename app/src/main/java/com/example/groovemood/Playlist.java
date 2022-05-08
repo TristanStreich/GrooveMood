@@ -1,7 +1,10 @@
 package com.example.groovemood;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.widget.Toast;
+
+import androidx.core.graphics.ColorUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,15 +22,32 @@ public class Playlist {
     //constructor only takes in name and happy/Sad and energy
     //Happy/Sad and energy both are floats that must be between -1 and 1
     //fill playlist with addSong or addSongs
-    public Playlist(String name, float happySad, float energy){
+    public Playlist(String name, float happySad, float energy) {
         this.name = name;
 
-        assert(happySad >= -1f && happySad <= 1f);
-        assert(energy >= -1f && energy <= 1f);
+        assert (happySad >= -1f && happySad <= 1f);
+        assert (energy >= -1f && energy <= 1f);
         this.happySad = happySad;
         this.energy = energy;
 
         songs = new ArrayList<Song>();
+    }
+
+    public static int convertToColor(float happySad, float energy){
+        float saturation = 1f;//0.6f + energy*0.4f;
+        float light = .70f - energy*.20f;//.5f;
+        //make happy color
+        float hue = 50f;
+        float []HSL = new float []{hue,saturation,light};
+        int happyColor = ColorUtils.HSLToColor(HSL);
+        //make sad color
+        HSL[0] = 200f;
+        int sadColor = ColorUtils.HSLToColor(HSL);
+        return ColorUtils.blendARGB(sadColor, happyColor, (happySad+1)/2);
+    }
+
+    public int getColor(){
+        return convertToColor(getHappySad(),getEnergy());
     }
 
     //starts playing the first song in the playlist

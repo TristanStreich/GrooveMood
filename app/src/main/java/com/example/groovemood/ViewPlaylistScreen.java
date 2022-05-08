@@ -39,6 +39,9 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         songName = (TextView) findViewById(R.id.playlistName);
         songLength = (TextView) findViewById(R.id.playlistLength);
 
+        View image = findViewById(R.id.playlistImage);
+        image.setBackgroundColor(thisPlaylist.getColor());
+
         populate();
 
         thisContext = this;
@@ -60,6 +63,12 @@ public class ViewPlaylistScreen extends AppCompatActivity {
     public void reDrawUI(){
         songContainer.removeAllViewsInLayout();
         populate();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reDrawUI();
     }
 
     public void setUpNavBar(){
@@ -215,7 +224,7 @@ public class ViewPlaylistScreen extends AppCompatActivity {
         });
     }
 
-    //Opens a pupup menu at the location of BUTTON.
+    //Opens a popup menu at the location of BUTTON.
     //The popup menu is specified by ID
     //The actions of the menu are specified by clickListener
     public void openPopUp(View button, int ID, PopupMenu.OnMenuItemClickListener clickListener){

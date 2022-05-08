@@ -11,7 +11,9 @@
 
     <!-- Added Colors-->
     <color name="main_blue">#FF399AE0</color>
+<!--    <color name="main_blue">#FF000000</color>-->
     <color name="alt_blue">#FF9ED5FD</color>
+<!--    <color name="alt_blue">#FF525252</color>-->
     <color name="spotify_green">#FF1DB954</color>
     <color name="spotify_black">#FF191414</color>
 

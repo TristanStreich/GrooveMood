@@ -117,7 +117,7 @@ public class MusicScreen extends AppCompatActivity {
         if (!MainActivity.playing){
             playPause.setImageResource(R.drawable.ic_play_button_large);
         } else {
-            playPause.setImageResource(R.drawable.large_pause);
+            playPause.setImageResource(R.drawable.ic_larger_pause_button);
         }
     }
 

@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_GrooveMood);
         setContentView(R.layout.activity_main);
         if (playlists == null){
             playlists = new ArrayList<Playlist>();
@@ -99,29 +100,24 @@ public class MainActivity extends AppCompatActivity {
         testSongs.add(new Song(207f,"Test Song 9"));
         testSongs.add(new Song(56f,"Test Song 10"));
 
+        Playlist testPlaylist = new Playlist("Party Time", 1f, 1f);
+        testPlaylist.addSongs(testSongs);
+        playlists.add(testPlaylist);
 
-        makeTestPlaylist(1,testSongs);
-        makeTestPlaylist(2,testSongs);
-        makeTestPlaylist(3,testSongs);
-        makeTestPlaylist(4,testSongs);
-        makeTestPlaylist(5,testSongs);
-        makeTestPlaylist(6,testSongs);
-        makeTestPlaylist(7,testSongs);
-        makeTestPlaylist(8,testSongs);
-        makeTestPlaylist(9,testSongs);
-        makeTestPlaylist(10,testSongs);
-        makeTestPlaylist(123456789,testSongs);
+        testPlaylist = new Playlist("Sunday Morning", 1f, 0f);
+        testPlaylist.addSongs(testSongs);
+        playlists.add(testPlaylist);
 
-        Playlist testPlaylist = new Playlist("short", 0.4f, .75f);
+        testPlaylist = new Playlist("Down Bad", -1f, -1f);
+        testPlaylist.addSongs(testSongs);
+        playlists.add(testPlaylist);
+
+
+        testPlaylist = new Playlist("Falling Apart", -1f, 1f);
         testPlaylist.addSongs(testSongs);
         playlists.add(testPlaylist);
 
     }
-
-    private void makeTestPlaylist(int num, ArrayList<Song> songs){
-        Playlist testPlaylist = new Playlist("Test Playlist " + Integer.toString(num), 0.4f, .75f);
-        testPlaylist.addSongs(songs);
-        playlists.add(testPlaylist);}
 
 
     private void populateScreen(){
@@ -214,6 +210,9 @@ public class MainActivity extends AppCompatActivity {
 
         TextView lengthText = playlistBar.findViewById(R.id.playlistLength);
         lengthText.setText(playlist.getReadableLength());
+
+        View image = playlistBar.findViewById(R.id.playlistImage);
+        image.setBackgroundColor(playlist.getColor());
 
 
         playlistBar.setOnClickListener(new View.OnClickListener() {
