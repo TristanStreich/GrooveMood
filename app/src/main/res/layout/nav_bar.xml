@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="SongName"
+            android:text="No Song Playing"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -96,11 +96,11 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
             android:background="@drawable/ic_user" />
     </RelativeLayout>
 
